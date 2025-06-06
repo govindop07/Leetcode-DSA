@@ -16,17 +16,21 @@ class Solution {
         return low;
     }
 
-    public boolean checkMinDays(int[] nums, int buqt, int flowers, int mid){
-        int count = 0, noOfBloomed = 0;
-        for(int i=0; i<nums.length; i++){
-            if(nums[i] <= mid){
-                count++;
-            } else{
-                noOfBloomed += (count / flowers);
-                count = 0;
+    public boolean checkMinDays(int[] bloomDay, int m, int k, int day) {
+        int bouquets = 0;
+        int flowers = 0;
+        for (int bloom : bloomDay) {
+            if (bloom <= day) {
+                flowers++;
+                if (flowers == k) {
+                    bouquets++;
+                    flowers = 0;
+                    if (bouquets >= m) return true;
+                }
+            } else {
+                flowers = 0;
             }
         }
-        noOfBloomed += (count / flowers);
-        return noOfBloomed >= buqt;
+        return bouquets >= m;
     }
 }

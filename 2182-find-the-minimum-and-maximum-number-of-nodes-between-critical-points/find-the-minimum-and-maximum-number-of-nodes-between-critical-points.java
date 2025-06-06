@@ -10,39 +10,34 @@
  */
 class Solution {
     public int[] nodesBetweenCriticalPoints(ListNode head) {
-        if(head == null || head.next == null || head.next.next == null){
-            return new int[]{-1,-1};
-        }
-
-        List<Integer> list = new ArrayList<>();
-        ListNode prev = head;
-        int pos = 1;
-
-        while(prev.next != null){
-            ListNode cur = prev.next;
-
-            if(cur.next != null){
-                if(prev.val < cur.val && cur.val > cur.next.val) list.add(pos);
-                if(prev.val > cur.val && cur.val < cur.next.val) list.add(pos);
-            }
-            
-            prev = prev.next;
-            pos++;
-        }
-
-        if(list.size() < 2){
-            return new int[]{-1,-1};
-        } 
-        System.out.println(list);
+        int[] result = {-1, -1};
 
         int minDistance = Integer.MAX_VALUE;
-        int maxDistance = list.get(list.size()-1) - list.get(0);
+        ListNode prev = head, curr = head.next;
+        int currIndex = 1;
+        Integer prevCriticalIndex = null, firstCriticalIndex = null;
 
-        for(int i=1; i<list.size(); i++){
-            int curDistance = list.get(i) - list.get(i-1);
-            minDistance = Math.min(minDistance, curDistance);
+        while (curr.next != null) {
+            if (prev.val > curr.val && curr.val < curr.next.val 
+            || prev.val < curr.val && curr.val > curr.next.val) {
+                
+                if (prevCriticalIndex == null) {
+                    prevCriticalIndex = currIndex;
+                    firstCriticalIndex = currIndex;
+                } else {
+                    minDistance = Math.min(minDistance, currIndex - prevCriticalIndex);
+                    prevCriticalIndex = currIndex;
+                }
+            }
+            currIndex++;
+            prev = curr;
+            curr = curr.next;
         }
 
-        return new int[]{minDistance, maxDistance};
+        if (minDistance != Integer.MAX_VALUE) {
+            result[0] = minDistance;
+            result[1] = prevCriticalIndex - firstCriticalIndex;
+        }
+        return result;
     }
 }

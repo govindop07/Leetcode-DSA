@@ -1,25 +1,14 @@
 class Solution {
     public List<Integer> targetIndices(int[] nums, int target) {
-        Arrays.sort(nums);
         List<Integer> ans = new ArrayList<>();
-        int firstOccurance = -1;
+        int count = 0, lessThanTarget = 0;
 
-        int low = 0, high = nums.length-1;
-        while(low <= high){
-            int mid = low + (high-low)/2;
+        for(int num: nums){
+            if(num == target) count++;
+            else if(num < target) lessThanTarget++;
+        }
 
-            if(nums[mid] < target) low = mid+1;
-            else {
-                firstOccurance = mid;
-                high = mid-1;
-            }
-        }
-        if(firstOccurance != -1 && nums[firstOccurance] == target) ans.add(firstOccurance);
-        int i = firstOccurance + 1;
-        while(i < nums.length && nums[i] == target) {
-            ans.add(i);
-            i++;
-        }
+        for(int i=0; i<count; i++) ans.add(lessThanTarget++);
 
         return ans;
     }

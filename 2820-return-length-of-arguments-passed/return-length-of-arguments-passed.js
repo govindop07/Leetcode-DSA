@@ -3,7 +3,8 @@
  * @return {number}
  */
 var argumentsLength = function(...args) {
-    return args.length;
+    let ans=args.length;
+    return ans;
 };
 
 /**

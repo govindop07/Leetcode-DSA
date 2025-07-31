@@ -4,18 +4,18 @@ class Solution {
         int mid = 0;
         int high = nums.length-1;
 
-        while(high >= mid){
+        while(mid <= high){
             if(nums[mid] == 0){
                 swap(nums, low, mid);
-                low++; mid++;
+                mid++; low++;
             }
 
-            else if(nums[mid] == 1) mid++;
-
-            else{
+            else if(nums[mid] == 2){
                 swap(nums, mid, high);
                 high--;
             }
+
+            else mid++;
         }
     }
 

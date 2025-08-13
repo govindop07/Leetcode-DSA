@@ -1,0 +1,25 @@
+class Solution {
+    public List<Integer> findAnagrams(String s, String p) {
+        List<Integer> ans = new ArrayList<>();
+
+        for(int i=0; i<=s.length()-p.length(); i++) {
+            boolean ana = checkAna(s, i, p);
+            if(ana) ans.add(i);
+        }
+        return ans;
+    }
+
+    private boolean checkAna(String str, int idx, String p) {
+        int[] count = new int[26];
+        for(char i: p.toCharArray()) count[i-'a']++;
+        for(int i=idx; i<idx+p.length(); i++) {
+            count[str.charAt(i)-'a']--;
+        }
+
+        for(int i: count) {
+            if(i != 0) return false;
+        }
+
+        return true;
+    }
+}

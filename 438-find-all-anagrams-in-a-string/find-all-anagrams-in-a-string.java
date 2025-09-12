@@ -10,10 +10,10 @@ class Solution {
     }
 
     private boolean checkAna(String str, int idx, String p) {
-        int[] count = new int[256];
-        for(char i: p.toCharArray()) count[i]++;
+        int[] count = new int[26];
+        for(char i: p.toCharArray()) count[i-'a']++;
         for(int i=idx; i<idx+p.length(); i++) {
-            count[str.charAt(i)]--;
+            count[str.charAt(i)-'a']--;
         }
 
         for(int i: count) {

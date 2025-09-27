@@ -1,19 +1,19 @@
 class Solution {
     public int maxFreqSum(String s) {
         String ragex = "aeiou";
-        Map<Character, Integer> map = new HashMap<>();
-        for(char c: s.toCharArray()) {
-            map.put(c, map.getOrDefault(c, 0) + 1);
-        }
+        int[] arr = new int[26];
+        for(char c: s.toCharArray()) arr[c-'a']++;
 
         int maxVowel = 0, maxConso = 0;
-        for(char c: map.keySet()) {
+        for(int i=0; i<26; i++) {
+            char c = (char) (i + 'a');
             if(ragex.indexOf(c) != -1) {
-                maxVowel = Math.max(maxVowel, map.get(c));
+                maxVowel = Math.max(maxVowel, arr[i]);
             } else {
-                maxConso = Math.max(maxConso, map.get(c));
+                maxConso = Math.max(maxConso, arr[i]);
             }
         }
+
         return maxVowel + maxConso;
     }
 }

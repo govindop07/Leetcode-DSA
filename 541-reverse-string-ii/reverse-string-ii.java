@@ -1,6 +1,5 @@
 class Solution {
     public String reverseStr(String s, int k) {
-        if(s.length() <= 1) return s;
         if(s.length() == k) return new StringBuilder(s).reverse().toString();
 
         int idx = 0, n = s.length();

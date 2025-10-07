@@ -1,22 +1,21 @@
 class Solution {
     public String[] findWords(String[] words) {
-        ArrayList<String> list = new ArrayList<>();
-        String first = "qwertyuiop";
-        String second = "asdfghjkl";
-        String third = "zxcvbnm";
-        
-        for(String word: words) {
+        List<String> result = new ArrayList<>();
+        String[] rows = {"qwertyuiop", "asdfghjkl", "zxcvbnm"};
+        for(String word : words){
             String lower = word.toLowerCase();
-            if(check(lower, first) || check(lower, second) || check(lower, third)) list.add(word);
+            for(String row : rows){
+                if(isValid(row, lower)){
+                    result.add(word);
+                }
+            }
         }
-        return list.toArray(new String[0]);
+        return result.toArray(new String[0]);
     }
-
-    public boolean check(String s, String ragex) {
-        for(char c: s.toCharArray()) {
-            if(ragex.indexOf(c) == -1) return false;
+    public static boolean isValid(String row, String word){
+        for(char c : word.toCharArray()){
+            if(row.indexOf(c)<0)  return false;
         }
-        
         return true;
     }
 }
